@@ -182,6 +182,29 @@ function clearTerminalContents(): void {
 }
 
 /**
+* Envia comando a la UTR
+* 2AAAFFFF2000000000000000F2
+*/
+var unhexlify = function(str) {
+var bytes = [];
+for (var i=0, l=str.length; i<l; i+=2) {
+  bytes.push(String.fromCharCode(parseInt(str.substr(i, 2), 16)));
+}
+return bytes;
+}
+  
+function sendCommandTerm(): void {
+  if (!term) {
+    throw new Error('no terminal instance found');
+    }
+
+  term.write(unhexlify('2AAAFFFF2000000000000000F2'));
+
+}
+
+
+
+/**
  * Sets |port| to the currently selected port. If none is selected then the
  * user is prompted for one.
  */
@@ -377,6 +400,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       fitAddon.fit();
     });
   }
+
+   const sendCommand =
+    document.getElementById('status') as HTMLSelectElement;
+  sendCommand.addEventListener('click', sendCommandTerm);
+
 
   const downloadOutput =
     document.getElementById('download') as HTMLSelectElement;
