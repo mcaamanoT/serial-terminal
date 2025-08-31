@@ -96,6 +96,7 @@ term.onData((data) => {
  */
 function findPortOption(port: SerialPort | SerialPortPolyfill):
     PortOption | null {
+  alert("hola");
   for (let i = 0; i < portSelector.options.length; ++i) {
     const option = portSelector.options[i];
     if (option.value === 'prompt') {
